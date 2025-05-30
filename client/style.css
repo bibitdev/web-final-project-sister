@@ -1,0 +1,88 @@
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #333;
+  --primary: #ff6b6b;
+}
+
+.dark-mode {
+  --bg-color: #1a1a2e;
+  --text-color: #f1f1f1;
+  --primary: #ff9e7d;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: all 0.3s;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.branches {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.branch-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.branch-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+form {
+  display: grid;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#reservationList ul {
+  list-style: none;
+  padding: 0;
+}
+
+#reservationList li {
+  background: rgba(255, 107, 107, 0.1);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

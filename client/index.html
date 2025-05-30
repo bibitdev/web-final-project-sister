@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservasi Restoran</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🍽️ RESTO KUY</h1>
+      <button id="themeToggle">🌙 Dark Mode</button>
+    </header>
+    
+    <div class="branches">
+      <button class="branch-btn active" data-branch="1">Cabang 1</button>
+      <button class="branch-btn" data-branch="2">Cabang 2</button>
+    </div>
+    
+    <form id="reservationForm">
+      <input type="text" id="name" placeholder="Nama Lengkap" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="date" id="date" required>
+      <select id="time" required>
+        <option value="">Pilih Waktu</option>
+        <option value="18:00">18:00</option>
+        <option value="19:00">19:00</option>
+        <option value="20:00">20:00</option>
+      </select>
+      <button type="submit">RESERVASI</button>
+    </form>
+    
+    <div id="reservationList">
+      <h2>Daftar Reservasi</h2>
+      <ul id="reservations"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
