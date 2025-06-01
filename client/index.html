@@ -3,39 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reservasi Restoran</title>
+  <title>RESTO KUY - Reservasi Online</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
+    <!-- Header/Navbar -->
     <header>
-      <h1>🍽️ RESTO KUY</h1>
-      <button id="themeToggle">🌙 Dark Mode</button>
+      <div class="logo">
+        <h1><i class="fas fa-utensils"></i> RESTO KUY</h1>
+        <p>Nikmati pengalaman makan terbaik di kota</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home" class="active"><i class="fas fa-home"></i> Beranda</a></li>
+          <li><a href="#reservation"><i class="fas fa-calendar-alt"></i> Reservasi</a></li>
+          <li><a href="#contact"><i class="fas fa-phone-alt"></i> Kontak</a></li>
+        </ul>
+        <button id="themeToggle"><i class="fas fa-moon"></i> Dark Mode</button>
+      </nav>
     </header>
-    
-    <div class="branches">
-      <button class="branch-btn active" data-branch="1">Cabang 1</button>
-      <button class="branch-btn" data-branch="2">Cabang 2</button>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h2>Selamat Datang di RESTO KUY</h2>
+        <p>Jl. Kuliner No. 123, Kota Anda | Buka 10:00 - 22:00</p>
+        <p>Restoran dengan konsep modern yang menyajikan hidangan lezat dengan bahan-bahan segar setiap hari.</p>
+        <a href="#reservation" class="cta-button">RESERVASI SEKARANG <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant Interior">
+      </div>
+    </section>
+
+    <!-- Reservation Form -->
+    <section id="reservation" class="reservation-section">
+      <h2><i class="fas fa-calendar-check"></i> Reservasi Meja</h2>
+      <p>Isi form berikut untuk memesan meja di restoran kami</p>
+      
+      <div class="branches">
+        <button class="branch-btn active" data-branch="1">Cabang Pusat</button>
+        <button class="branch-btn" data-branch="2">Cabang Timur</button>
+      </div>
+      
+      <form id="reservationForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name"><i class="fas fa-user"></i> Nama Lengkap</label>
+            <input type="text" id="name" placeholder="Masukkan nama lengkap" required>
+          </div>
+          <div class="form-group">
+            <label for="phone"><i class="fas fa-phone"></i> Nomor WhatsApp</label>
+            <input type="tel" id="phone" placeholder="Contoh: 081234567890" required>
+          </div>
+          <div class="form-group">
+            <label for="people"><i class="fas fa-users"></i> Jumlah Orang</label>
+            <select id="people" required>
+              <option value="">Pilih jumlah</option>
+              <option value="1-2">1-2 Orang</option>
+              <option value="3-4">3-4 Orang</option>
+              <option value="5-6">5-6 Orang</option>
+              <option value="7+">7+ Orang</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="table"><i class="fas fa-chair"></i> Pilihan Meja</label>
+            <select id="table" required>
+              <option value="">Pilih meja</option>
+              <option value="Meja 1-5 (2 orang)">Meja 1-5 (2 orang)</option>
+              <option value="Meja 6-10 (4 orang)">Meja 6-10 (4 orang)</option>
+              <option value="Meja 11-15 (6 orang)">Meja 11-15 (6 orang)</option>
+              <option value="VIP Room">VIP Room (8-10 orang)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="date"><i class="fas fa-calendar-day"></i> Tanggal Reservasi</label>
+            <input type="date" id="date" required>
+          </div>
+          <div class="form-group">
+            <label for="time"><i class="fas fa-clock"></i> Waktu Reservasi</label>
+            <select id="time" required>
+              <option value="">Pilih waktu</option>
+              <option value="10:00">10:00</option>
+              <option value="12:00">12:00</option>
+              <option value="14:00">14:00</option>
+              <option value="16:00">16:00</option>
+              <option value="18:00">18:00</option>
+              <option value="20:00">20:00</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> KIRIM RESERVASI</button>
+      </form>
+    </section>
+
+    <!-- Reservation Summary (hidden by default) -->
+    <section id="reservationSummary" class="reservation-summary" style="display: none;">
+      <h2><i class="fas fa-check-circle"></i> Ringkasan Reservasi</h2>
+      <div class="summary-card">
+        <div class="summary-details">
+          <h3 id="summaryName"></h3>
+          <p><i class="fas fa-phone"></i> <span id="summaryPhone"></span></p>
+          <p><i class="fas fa-users"></i> <span id="summaryPeople"></span></p>
+          <p><i class="fas fa-chair"></i> <span id="summaryTable"></span></p>
+          <p><i class="fas fa-calendar-day"></i> <span id="summaryDate"></span></p>
+          <p><i class="fas fa-clock"></i> <span id="summaryTime"></span></p>
+          <p class="note">Meja akan ditahan selama 15 menit setelah waktu reservasi</p>
+        </div>
+        <div class="summary-actions">
+          <button id="confirmReservation" class="confirm-btn"><i class="fas fa-check"></i> KONFIRMASI</button>
+          <button id="editReservation" class="edit-btn"><i class="fas fa-edit"></i> EDIT</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Status Notification (hidden by default) -->
+    <div id="statusNotification" class="status-notification" style="display: none;">
+      <div class="notification-content">
+        <i id="statusIcon" class="fas"></i>
+        <h3 id="statusTitle"></h3>
+        <p id="statusMessage"></p>
+        <button id="closeNotification" class="close-btn">TUTUP</button>
+      </div>
     </div>
-    
-    <form id="reservationForm">
-      <input type="text" id="name" placeholder="Nama Lengkap" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="date" id="date" required>
-      <select id="time" required>
-        <option value="">Pilih Waktu</option>
-        <option value="18:00">18:00</option>
-        <option value="19:00">19:00</option>
-        <option value="20:00">20:00</option>
-      </select>
-      <button type="submit">RESERVASI</button>
-    </form>
-    
-    <div id="reservationList">
-      <h2>Daftar Reservasi</h2>
-      <ul id="reservations"></ul>
-    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <h2><i class="fas fa-phone-alt"></i> Hubungi Kami</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Informasi Kontak</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Jl. Kuliner No. 123, Kota Anda</p>
+          <p><i class="fas fa-phone"></i> (021) 1234-5678</p>
+          <p><i class="fas fa-envelope"></i> hello@restokuy.com</p>
+          <p><i class="fas fa-clock"></i> Buka setiap hari 10:00 - 22:00</p>
+          <a href="https://wa.me/6281234567890" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Hubungi via WhatsApp</a>
+        </div>
+        <div class="contact-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.81956135063986!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sMonumen%20Nasional!5e0!3m2!1sen!2sid!4v1590407280273!5m2!1sen!2sid" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+      </div>
+      
+      <div class="faq-section">
+        <h3><i class="fas fa-question-circle"></i> Pertanyaan Umum</h3>
+        <div class="faq-item">
+          <button class="faq-question">Bagaimana proses reservasi? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer">
+            <p>Isi form reservasi di atas dengan data lengkap. Setelah submit, Anda akan menerima notifikasi konfirmasi via WhatsApp. Meja akan disiapkan sesuai waktu reservasi Anda.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Berapa lama meja ditahan? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer">
+            <p>Meja akan ditahan selama 15 menit setelah waktu reservasi. Jika Anda terlambat lebih dari 15 menit, meja mungkin akan diberikan ke pelanggan lain.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Apakah bisa reservasi untuk acara khusus? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer">
+            <p>Ya, untuk acara khusus seperti ulang tahun atau pertemuan bisnis, silakan hubungi kami via WhatsApp untuk pengaturan khusus.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3><i class="fas fa-utensils"></i> RESTO KUY</h3>
+          <p>Makan enak, harga bersahabat</p>
+        </div>
+        <div class="footer-links">
+          <h4>Tautan Cepat</h4>
+          <ul>
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#reservation">Reservasi</a></li>
+            <li><a href="#contact">Kontak</a></li>
+          </ul>
+        </div>
+        <div class="footer-social">
+          <h4>Media Sosial</h4>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 RESTO KUY. All rights reserved.</p>
+      </div>
+    </footer>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

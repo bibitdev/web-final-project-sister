@@ -1,83 +1,129 @@
-// const express = require('express');
-// const cors = require('cors');
-
-// // Simulasi 2 Server (Cabang 1 dan 2)
-// const app1 = express();
-// const app2 = express();
-// app1.use(cors());
-// app2.use(cors());
-// app1.use(express.json());
-// app2.use(express.json());
-
-// // Database Sederhana (In-Memory)
-// const db1 = { reservations: [] };
-// const db2 = { reservations: [] };
-
-// // API Endpoint untuk Cabang 1 (Port 3001)
-// app1.get('/reservations', (req, res) => {
-//   res.json(db1.reservations);
-// });
-
-// app1.post('/reservations', (req, res) => {
-//   db1.reservations.push(req.body);
-//   res.json({ success: true });
-// });
-
-// // API Endpoint untuk Cabang 2 (Port 3002)
-// app2.get('/reservations', (req, res) => {
-//   res.json(db2.reservations);
-// });
-
-// app2.post('/reservations', (req, res) => {
-//   db2.reservations.push(req.body);
-//   res.json({ success: true });
-// });
-
-// // Jalankan 2 Server
-// app1.listen(3001, () => console.log('Cabang 1 running on port 3001'));
-// app2.listen(3002, () => console.log('Cabang 2 running on port 3002')); 
-
-
-
-// ========================================
-
 const express = require('express');
 const cors = require('cors');
 
-// Simulasi 2 Server (Cabang 1 dan 2)
-const app1 = express();
-const app2 = express();
-app1.use(cors());
-app2.use(cors());
-app1.use(express.json());
-app2.use(express.json());
+// Inisialisasi server untuk Cabang 1
+const appBranch1 = express();
+const PORT1 = 3001;
 
-// Database Sederhana (In-Memory)
-const db = {
-  cabang1: { reservations: [] },
-  cabang2: { reservations: [] },
+// Inisialisasi server untuk Cabang 2
+const appBranch2 = express();
+const PORT2 = 3002;
+
+// Middleware untuk kedua cabang
+appBranch1.use(cors());
+appBranch1.use(express.json());
+
+appBranch2.use(cors());
+appBranch2.use(express.json());
+
+// Simpan data reservasi sementara (dalam produksi gunakan database)
+const reservations = {
+  branch1: [],
+  branch2: []
 };
 
-// API Endpoint untuk Cabang 1 (Port 3001)
-app1.get('/reservations', (req, res) => {
-  res.json(db.cabang1.reservations);
+// Endpoint untuk Cabang 1
+appBranch1.post('/reservations', (req, res) => {
+  try {
+    const reservation = {
+      ...req.body,
+      id: Date.now(),
+      createdAt: new Date().toISOString()
+    };
+
+    reservations.branch1.push(reservation);
+    console.log('Reservasi Cabang 1:', reservation);
+
+    // Simulasikan delay proses
+    setTimeout(() => {
+      res.status(201).json({
+        status: 'success',
+        message: 'Reservasi berhasil dicatat',
+        data: reservation
+      });
+    }, 1000);
+  } catch (error) {
+    console.error('Error Cabang 1:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Terjadi kesalahan server'
+    });
+  }
 });
 
-app1.post('/reservations', (req, res) => {
-  db.cabang1.reservations.push(req.body);
-  res.json({ success: true });
+appBranch1.get('/reservations', (req, res) => {
+  res.json({
+    status: 'success',
+    data: reservations.branch1
+  });
 });
 
-// API Endpoint untuk Cabang 2 (Port 3002)
-app2.get('/reservations', (req, res) => {
-  res.json(db.cabang2.reservations);
+// Endpoint untuk Cabang 2
+appBranch2.post('/reservations', (req, res) => {
+  try {
+    const reservation = {
+      ...req.body,
+      id: Date.now(),
+      createdAt: new Date().toISOString()
+    };
+
+    reservations.branch2.push(reservation);
+    console.log('Reservasi Cabang 2:', reservation);
+
+    // Simulasikan delay proses
+    setTimeout(() => {
+      res.status(201).json({
+        status: 'success',
+        message: 'Reservasi berhasil dicatat',
+        data: reservation
+      });
+    }, 1000);
+  } catch (error) {
+    console.error('Error Cabang 2:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'Terjadi kesalahan server'
+    });
+  }
 });
 
-app2.post('/reservations', (req, res) => {
-  db.cabang2.reservations.push(req.body);
-  res.json({ success: true });
+appBranch2.get('/reservations', (req, res) => {
+  res.json({
+    status: 'success',
+    data: reservations.branch2
+  });
 });
 
-// Jalankan 2 Server
-app1.listen(3001, () => console.log('Cabang 1 running on port 3001'));
-app2.listen(3002, () => console.log('Cabang 2 running on port 3002'));
+// Jalankan server untuk kedua cabang
+appBranch1.listen(PORT1, () => {
+  console.log(`Server Cabang 1 berjalan di http://localhost:${PORT1}`);
+});
+
+appBranch2.listen(PORT2, () => {
+  console.log(`Server Cabang 2 berjalan di http://localhost:${PORT2}`);
+});
+
+// Endpoint root untuk testing
+appBranch1.get('/', (req, res) => {
+  res.send(`
+    <h1>RESTO KUY - Cabang Pusat</h1>
+    <p>Server berjalan dengan baik</p>
+    <p>Endpoint API:</p>
+    <ul>
+      <li>POST /reservations - Untuk membuat reservasi</li>
+      <li>GET /reservations - Untuk melihat daftar reservasi</li>
+    </ul>
+  `);
+});
+
+appBranch2.get('/', (req, res) => {
+  res.send(`
+    <h1>RESTO KUY - Cabang Timur</h1>
+    <p>Server berjalan dengan baik</p>
+    <p>Endpoint API:</p>
+    <ul>
+      <li>POST /reservations - Untuk membuat reservasi</li>
+      <li>GET /reservations - Untuk melihat daftar reservasi</li>
+    </ul>
+  `);
+});
