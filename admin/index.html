@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin RESTO KUY</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-container">
+    <header class="admin-header">
+      <h1><i class="fas fa-user-shield"></i> Admin RESTO KUY</h1>
+      <div class="branch-selector">
+        <button id="branch1Btn" class="active">Cabang Pusat</button>
+        <button id="branch2Btn">Cabang Timur</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <div class="reservations-list">
+        <h2><i class="fas fa-list"></i> Daftar Reservasi</h2>
+        <div class="filters">
+          <select id="statusFilter">
+            <option value="all">Semua Status</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Dikonfirmasi</option>
+            <option value="cancelled">Dibatalkan</option>
+            <option value="completed">Selesai</option>
+          </select>
+          <input type="date" id="dateFilter" placeholder="Filter berdasarkan tanggal">
+        </div>
+        
+        <table id="reservationsTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama</th>
+              <th>No. HP</th>
+              <th>Tanggal</th>
+              <th>Waktu</th>
+              <th>Meja</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="reservationsBody">
+            <!-- Data akan diisi oleh JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <footer class="admin-footer">
+      <p>&copy; 2023 RESTO KUY - Sistem Admin</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

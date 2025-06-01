@@ -127,14 +127,27 @@ reservationForm.addEventListener('submit', (e) => {
 
 // Confirm Reservation
 document.getElementById('confirmReservation').addEventListener('click', () => {
-  // Simulate API call
-  const isSuccess = Math.random() > 0.2; // 80% success rate for demo
+  const reservation = {
+    id: Date.now(),
+    name: document.getElementById('name').value,
+    phone: document.getElementById('phone').value,
+    people: document.getElementById('people').value,
+    table: document.getElementById('table').value,
+    date: document.getElementById('date').value,
+    time: document.getElementById('time').value,
+    status: 'pending'
+  };
+
+  // Simpan ke localStorage
+  const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+  reservations.push(reservation);
+  localStorage.setItem('reservations', JSON.stringify(reservations));
+
+  showStatusNotification('success', 'Reservasi Berhasil!', 'Reservasi Anda berhasil disimpan.');
   
-  showStatusNotification(
-    isSuccess ? 'success' : 'error',
-    isSuccess ? 'Reservasi Berhasil!' : 'Reservasi Gagal',
-    isSuccess ? 'Terima kasih! Reservasi Anda berhasil. Admin akan segera menghubungi Anda via WhatsApp untuk konfirmasi.' : 'Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi kami via WhatsApp.'
-  );
+  reservationForm.reset();
+  reservationSummary.style.display = 'none';
+  reservationForm.style.display = 'block';
   
   // Reset form if success
   if (isSuccess) {
